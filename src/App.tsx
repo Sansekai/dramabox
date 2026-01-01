@@ -7,6 +7,8 @@ import { Header } from "@/components/Header";
 import Index from "./pages/Index";
 import Latest from "./pages/Latest";
 import Trending from "./pages/Trending";
+import Detail from "./pages/Detail";
+import Watch from "./pages/Watch";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/terbaru" element={<Latest />} />
           <Route path="/terpopuler" element={<Trending />} />
+          <Route path="/detail/:bookId" element={<Detail />} />
+          <Route path="/watch/:bookId" element={<Watch />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

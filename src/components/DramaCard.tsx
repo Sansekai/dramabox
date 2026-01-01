@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Play, Flame } from "lucide-react";
 import type { Drama } from "@/types/drama";
 
@@ -11,8 +12,9 @@ export function DramaCard({ drama, index = 0 }: DramaCardProps) {
   const tags = drama.tags || drama.tagNames || [];
 
   return (
-    <div
-      className="group relative rounded-2xl overflow-hidden card-hover animate-fade-up"
+    <Link
+      to={`/detail/${drama.bookId}`}
+      className="group relative rounded-2xl overflow-hidden card-hover animate-fade-up block"
       style={{ animationDelay: `${index * 50}ms` }}
     >
       {/* Cover Image */}
@@ -87,6 +89,6 @@ export function DramaCard({ drama, index = 0 }: DramaCardProps) {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
