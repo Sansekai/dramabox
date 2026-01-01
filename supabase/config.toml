@@ -1,4 +1,0 @@
-project_id = "hfqnsivdrshdaalklbus"
-
-[functions.drama-proxy]
-verify_jwt = false
