@@ -18,7 +18,8 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const debouncedQuery = useDebounce(searchQuery, 300);
-  const { data: searchResults, isLoading: isSearching } = useSearchDramas(debouncedQuery);
+  const normalizedQuery = debouncedQuery.trim();
+  const { data: searchResults, isLoading: isSearching } = useSearchDramas(normalizedQuery);
 
   const handleSearchClose = () => {
     setSearchOpen(false);
@@ -119,7 +120,7 @@ export function Header() {
 
             {/* Search Results */}
             <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
-              {isSearching && debouncedQuery && (
+              {isSearching && normalizedQuery && (
                 <div className="flex items-center justify-center py-12">
                   <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
@@ -164,9 +165,9 @@ export function Header() {
                 </div>
               )}
 
-              {searchResults && searchResults.length === 0 && debouncedQuery && (
+              {searchResults && searchResults.length === 0 && normalizedQuery && (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">Tidak ada hasil untuk "{debouncedQuery}"</p>
+                  <p className="text-muted-foreground">Tidak ada hasil untuk "{normalizedQuery}"</p>
                 </div>
               )}
 
