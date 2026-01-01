@@ -48,10 +48,12 @@ export function useTrendingDramas() {
 }
 
 export function useSearchDramas(query: string) {
+  const normalizedQuery = query.trim();
+
   return useQuery({
-    queryKey: ["dramas", "search", query],
-    queryFn: () => searchDramas(query),
-    enabled: query.length > 0,
+    queryKey: ["dramas", "search", normalizedQuery],
+    queryFn: () => searchDramas(normalizedQuery),
+    enabled: normalizedQuery.length > 0,
     staleTime: 1000 * 60 * 2,
   });
 }
