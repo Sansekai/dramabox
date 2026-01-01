@@ -165,37 +165,6 @@ export default function Detail() {
         </div>
       </div>
 
-      {/* Recommendations */}
-      {recommends && recommends.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold font-display mb-6">Drama Serupa</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {recommends.slice(0, 6).map((drama, index) => (
-              <Link
-                key={drama.bookId}
-                to={`/detail/${drama.bookId}`}
-                className="group animate-fade-up"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <div className="relative aspect-[2/3] rounded-xl overflow-hidden card-hover">
-                  <img
-                    src={drama.cover}
-                    alt={drama.bookName}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <h3 className="text-sm font-semibold line-clamp-2">{drama.bookName}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {drama.chapterCount} Episode
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
     </main>
   );
 }
