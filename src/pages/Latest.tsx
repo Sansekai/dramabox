@@ -1,16 +1,16 @@
 import { HeroSection } from "@/components/HeroSection";
 import { DramaGrid } from "@/components/DramaGrid";
-import { useForYouDramas } from "@/hooks/useDramas";
+import { useLatestDramas } from "@/hooks/useDramas";
 
-const Index = () => {
-  const { data: dramas, isLoading, error } = useForYouDramas();
+const Latest = () => {
+  const { data: dramas, isLoading, error } = useLatestDramas();
 
   return (
     <main className="min-h-screen">
       <HeroSection
-        title="Untuk Kamu"
-        description="Drama pilihan yang dipersonalisasi khusus untukmu. Temukan cerita seru yang sesuai selera!"
-        icon="sparkles"
+        title="Drama Terbaru"
+        description="Update terbaru drama yang baru saja rilis. Jangan sampai ketinggalan!"
+        icon="clock"
       />
 
       <div className="container mx-auto px-4 pb-12">
@@ -26,4 +26,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Latest;
