@@ -1,15 +1,17 @@
+"use client";
+
 import { HeroSection } from "@/components/HeroSection";
 import { DramaGrid } from "@/components/DramaGrid";
 import { useLatestDramas } from "@/hooks/useDramas";
 
-const Latest = () => {
+export default function TerbaruContent() {
   const { data: dramas, isLoading, error } = useLatestDramas();
 
   return (
     <main className="min-h-screen">
       <HeroSection
         title="Drama Terbaru"
-        description="Update terbaru drama yang baru saja rilis. Jangan sampai ketinggalan!"
+        description="Drama-drama terbaru yang baru saja rilis. Jangan sampai ketinggalan!"
         icon="clock"
       />
 
@@ -24,6 +26,4 @@ const Latest = () => {
       </div>
     </main>
   );
-};
-
-export default Latest;
+}

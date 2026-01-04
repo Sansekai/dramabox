@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Play, Flame } from "lucide-react";
 import type { Drama } from "@/types/drama";
 
@@ -13,7 +13,7 @@ export function DramaCard({ drama, index = 0 }: DramaCardProps) {
 
   return (
     <Link
-      to={`/detail/${drama.bookId}`}
+      href={`/detail/${drama.bookId}`}
       className="group relative rounded-2xl overflow-hidden card-hover animate-fade-up block"
       style={{ animationDelay: `${index * 50}ms` }}
     >

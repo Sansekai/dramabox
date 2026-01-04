@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { DramaCard } from "@/components/DramaCard";
@@ -19,7 +21,7 @@ async function fetchDubindoDramas(classify: ClassifyType, page: number): Promise
   return response.json();
 }
 
-export default function DubbingIndo() {
+export default function SulihSuaraContent() {
   const [classify, setClassify] = useState<ClassifyType>("terbaru");
   const [page, setPage] = useState(1);
 

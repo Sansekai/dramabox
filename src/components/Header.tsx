@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, X, Play, Menu } from "lucide-react";
 import { useSearchDramas } from "@/hooks/useDramas";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -13,8 +16,8 @@ const navLinks = [
 ];
 
 export function Header() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,7 +35,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Play className="w-5 h-5 text-white fill-white" />
             </div>
@@ -46,8 +49,8 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
-                className={`nav-link ${location.pathname === link.path ? "active" : ""}`}
+                href={link.path}
+                className={`nav-link ${pathname === link.path ? "active" : ""}`}
               >
                 {link.label}
               </Link>
@@ -80,10 +83,10 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
+                href={link.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block py-3 px-2 text-sm font-medium rounded-lg transition-colors ${
-                  location.pathname === link.path
+                  pathname === link.path
                     ? "text-foreground bg-muted/50"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                 }`}
@@ -134,7 +137,7 @@ export function Header() {
                     {searchResults.map((drama, index) => (
                       <Link
                         key={drama.bookId}
-                        to={`/detail/${drama.bookId}`}
+                        href={`/detail/${drama.bookId}`}
                         onClick={handleSearchClose}
                         className="flex gap-4 p-4 rounded-2xl bg-card hover:bg-muted transition-all text-left animate-fade-up overflow-hidden"
                         style={{ animationDelay: `${index * 50}ms` }}

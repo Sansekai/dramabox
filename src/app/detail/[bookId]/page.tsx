@@ -1,11 +1,16 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+"use client";
+
 import { useDramaDetail } from "@/hooks/useDramaDetail";
 import { Play, Eye, Heart, Calendar, ChevronLeft, Users } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
 
-export default function Detail() {
-  const { bookId } = useParams<{ bookId: string }>();
-  const navigate = useNavigate();
+export default function DetailPage() {
+  const params = useParams<{ bookId: string }>();
+  const bookId = params.bookId;
+  const router = useRouter();
   const { data, isLoading, error } = useDramaDetail(bookId || "");
 
   if (isLoading) {
@@ -17,7 +22,7 @@ export default function Detail() {
       <div className="min-h-screen pt-24 px-4">
         <div className="max-w-7xl mx-auto text-center py-20">
           <h2 className="text-2xl font-bold text-foreground mb-4">Drama tidak ditemukan</h2>
-          <Link to="/" className="text-primary hover:underline">
+          <Link href="/" className="text-primary hover:underline">
             Kembali ke beranda
           </Link>
         </div>
@@ -25,7 +30,7 @@ export default function Detail() {
     );
   }
 
-  const { book, recommends } = data.data;
+  const { book } = data.data;
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
@@ -50,7 +55,7 @@ export default function Detail() {
         <div className="relative max-w-7xl mx-auto px-4 py-8">
           {/* Back Button */}
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => router.back()}
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -67,7 +72,7 @@ export default function Detail() {
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
                 <Link
-                  to={`/watch/${book.bookId}`}
+                  href={`/watch/${book.bookId}`}
                   className="px-8 py-3 rounded-full bg-primary text-primary-foreground font-semibold flex items-center gap-2 hover:scale-105 transition-transform shadow-lg"
                 >
                   <Play className="w-5 h-5 fill-current" />
@@ -153,7 +158,7 @@ export default function Detail() {
 
               {/* Watch Button */}
               <Link
-                to={`/watch/${book.bookId}`}
+                href={`/watch/${book.bookId}`}
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
                 style={{ background: "var(--gradient-primary)" }}
               >
@@ -164,7 +169,6 @@ export default function Detail() {
           </div>
         </div>
       </div>
-
     </main>
   );
 }

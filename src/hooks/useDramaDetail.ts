@@ -4,9 +4,7 @@ import type { DramaDetailResponse, Episode } from "@/types/drama";
 const API_BASE = "/api/dramabox";
 
 async function fetchDramaDetail(bookId: string): Promise<DramaDetailResponse> {
-  const response = await fetch(`${API_BASE}/detail/${bookId}`, {
-    headers: { "Accept": "application/json" },
-  });
+  const response = await fetch(`${API_BASE}/detail/${bookId}`);
   if (!response.ok) {
     throw new Error("Failed to fetch drama detail");
   }
@@ -14,9 +12,7 @@ async function fetchDramaDetail(bookId: string): Promise<DramaDetailResponse> {
 }
 
 async function fetchAllEpisodes(bookId: string): Promise<Episode[]> {
-  const response = await fetch(`${API_BASE}/allepisode/${bookId}`, {
-    headers: { "Accept": "application/json" },
-  });
+  const response = await fetch(`${API_BASE}/allepisode/${bookId}`);
   if (!response.ok) {
     throw new Error("Failed to fetch episodes");
   }

@@ -1,8 +1,11 @@
+"use client";
+
 import { useMemo, useState, useEffect, useRef } from "react";
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useDramaDetail, useEpisodes } from "@/hooks/useDramaDetail";
 import { ChevronLeft, ChevronRight, Play, Loader2, Settings } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,9 +15,11 @@ import {
 
 const EPISODES_PER_PAGE = 30;
 
-export default function Watch() {
-  const { bookId } = useParams<{ bookId: string }>();
-  const [searchParams, setSearchParams] = useSearchParams();
+export default function WatchPage() {
+  const params = useParams<{ bookId: string }>();
+  const bookId = params.bookId;
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [currentEpisode, setCurrentEpisode] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [quality, setQuality] = useState(720);
@@ -35,7 +40,7 @@ export default function Watch() {
   // Update URL when episode changes
   const handleEpisodeChange = (index: number) => {
     setCurrentEpisode(index);
-    setSearchParams({ ep: index.toString() });
+    router.push(`/watch/${bookId}?ep=${index}`);
   };
 
   // All useMemo hooks must be called BEFORE any early returns
@@ -136,7 +141,7 @@ export default function Watch() {
       <div className="min-h-screen pt-24 px-4">
         <div className="max-w-7xl mx-auto text-center py-20">
           <h2 className="text-2xl font-bold text-foreground mb-4">Drama tidak ditemukan</h2>
-          <Link to="/" className="text-primary hover:underline">
+          <Link href="/" className="text-primary hover:underline">
             Kembali ke beranda
           </Link>
         </div>
@@ -151,7 +156,7 @@ export default function Watch() {
       <div className="max-w-7xl mx-auto px-4">
         {/* Back Button */}
         <Link
-          to={`/detail/${bookId}`}
+          href={`/detail/${bookId}`}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -306,22 +311,6 @@ export default function Watch() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </main>
-  );
-}
-
-function WatchSkeleton() {
-  return (
-    <main className="min-h-screen pt-24 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
-          <div className="space-y-4">
-            <Skeleton className="aspect-video w-full rounded-2xl" />
-            <Skeleton className="h-20 w-full rounded-xl" />
-          </div>
-          <Skeleton className="h-[500px] rounded-xl" />
         </div>
       </div>
     </main>

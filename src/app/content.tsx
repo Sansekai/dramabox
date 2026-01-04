@@ -1,16 +1,18 @@
+"use client";
+
 import { HeroSection } from "@/components/HeroSection";
 import { DramaGrid } from "@/components/DramaGrid";
-import { useTrendingDramas } from "@/hooks/useDramas";
+import { useForYouDramas } from "@/hooks/useDramas";
 
-const Trending = () => {
-  const { data: dramas, isLoading, error } = useTrendingDramas();
+export default function HomeContent() {
+  const { data: dramas, isLoading, error } = useForYouDramas();
 
   return (
     <main className="min-h-screen">
       <HeroSection
-        title="Terpopuler"
-        description="Drama yang sedang viral dan banyak ditonton. Yang paling hot minggu ini! 🔥"
-        icon="trending"
+        title="Untuk Kamu"
+        description="Drama pilihan yang dipersonalisasi khusus untukmu. Temukan cerita seru yang sesuai selera!"
+        icon="sparkles"
       />
 
       <div className="container mx-auto px-4 pb-12">
@@ -24,6 +26,4 @@ const Trending = () => {
       </div>
     </main>
   );
-};
-
-export default Trending;
+}
